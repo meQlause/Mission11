@@ -1,6 +1,6 @@
 import pool from '../config/db';
 import { userLoginDTO, userRegisterDTO } from '../dtos/user.dto';
-import { generateToken } from '../utils/jwtUtils';
+import { generateToken } from '../utils/jwtUtil';
 import { comparePassword, hashPassword } from './../utils/passwordHash';
 
 export const userLogin = async (data: userLoginDTO) => {
