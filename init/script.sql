@@ -100,13 +100,14 @@ INSERT INTO users (nama_lengkap, jenis_kelamin, no_hp, email, kata_sandi, profil
   );
 
 -- Seed data for produk (with pre-filled review_count and average_rating)
-
 INSERT INTO produk (
   id,
   tutor_id,
   kategori_kelas,
   judul,
   tagline,
+  harga,
+  durasi,
   deskripsi,
   created_at,
   review_count,
@@ -118,6 +119,8 @@ INSERT INTO produk (
     1,
     'Desain UI/UX untuk Pemula',
     'Pelajari dasar desain yang menarik dan fungsional',
+    150000,
+    120, -- 2 hours
     'Kelas ini akan membimbing Anda memahami prinsip desain UI/UX dengan studi kasus langsung dari dunia kerja.',
     CURRENT_DATE,
     1,
@@ -129,6 +132,8 @@ INSERT INTO produk (
     2,
     'Membangun Website Modern dengan React',
     'React dari nol hingga mahir',
+    250000,
+    240, -- 4 hours
     'Pelajari cara membangun aplikasi web SPA menggunakan React, React Router, dan integrasi backend sederhana.',
     CURRENT_DATE,
     3,
@@ -140,6 +145,8 @@ INSERT INTO produk (
     4,
     'Strategi Digital Marketing 2025',
     'Tingkatkan bisnismu dengan strategi online terbaru',
+    200000,
+    120, -- 2 hours
     'Kuasai teknik pemasaran digital, SEO, media sosial, dan iklan berbayar untuk mendongkrak penjualan online.',
     CURRENT_DATE,
     2,
@@ -151,6 +158,8 @@ INSERT INTO produk (
     7,
     'Data Science dengan Python',
     'Dari dasar hingga prediksi machine learning',
+    600000,
+    480, -- 8 hours
     'Mulai dari Python dasar hingga proyek prediktif menggunakan Pandas, Scikit-learn, dan Matplotlib.',
     CURRENT_DATE,
     0,
@@ -162,11 +171,15 @@ INSERT INTO produk (
     6,
     'Teknik Videografi untuk Konten Kreator',
     'Video sinematik dari ponselmu',
+    100000,
+    240, -- 4 hours
     'Pelajari teknik pengambilan gambar, angle, lighting, dan editing video untuk konten YouTube dan Instagram.',
     CURRENT_DATE,
     0,
     NULL
   );
+
+
 
 -- Seed data for pretest (one per produk)
 

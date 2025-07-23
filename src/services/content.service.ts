@@ -1,5 +1,8 @@
 import pool from '../config/db';
 import { addCourseDTO } from '../dtos/addCourse.dto';
+import { QueryBuilder } from '../utils/queryBuilder';
+import { QueryParam } from '../utils/types';
+import { Request } from 'express';
 
 export const getAllProducts = async () => {
     const result = await pool.query('SELECT * FROM produk');
@@ -19,7 +22,7 @@ export const deleteProductById = async (id: number) => {
         'DELETE FROM produk WHERE id = $1 RETURNING *',
         [id]
     );
-    return result.rows[0]; 
+    return result.rows[0];
 };
 
 
@@ -68,10 +71,49 @@ export const updateProductById = async (id: number, data: addCourseDTO) => {
     SET ${fields.join(', ')}
     WHERE id = $${i}
     RETURNING *;
-  `;
+    `;
 
     values.push(id);
 
     const result = await pool.query(query, values);
     return result.rows[0];
 };
+
+export const searchProduct = async (data: QueryParam | undefined) => {
+    if (!data) {
+        return await getAllProducts()
+    }
+
+    const result = await pool.query(buildQuerySearch(data));
+    return result.rows;
+}
+
+const buildQuerySearch = (data: QueryParam): string => {
+    const query = new QueryBuilder("produk")
+
+    if (data.search) {
+        query.fullTextSearch("search_tsv", data.search)
+    }
+
+    if (Array.isArray(data.durasi) && data.durasi.length > 0) {
+        if (data.durasi.length === 2) {
+            query.filterBetween("durasi", String(data.durasi[0]), String(data.durasi[1]))
+        } else {
+            query.filterBetween("durasi", "0", String(data.durasi[0]))
+        }
+    }
+
+    if (Array.isArray(data.harga) && data.harga.length > 0) {
+        if (data.harga.length === 2) {
+            query.filterBetween("durasi", String(data.harga[0]), String(data.harga[1]))
+        } else {
+            query.filterBetween("durasi", "0", String(data.harga[0]))
+        }
+    }
+
+    if (Array.isArray(data.studi) && data.studi.length > 0) {
+        query.filterEquals("studi", data.studi);
+    }
+
+    return query.getQuery()
+}

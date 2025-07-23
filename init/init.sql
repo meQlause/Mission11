@@ -39,11 +39,34 @@ CREATE TABLE produk (
   tutor_id INTEGER NOT NULL REFERENCES tutor(id),
   judul TEXT,
   tagline TEXT,
+  harga NUMERIC,
+  durasi NUMERIC,
   deskripsi TEXT,
   created_at DATE DEFAULT CURRENT_DATE,
   review_count NUMERIC,
   average_rating NUMERIC
 );
+
+ALTER TABLE produk ADD COLUMN search_tsv tsvector;
+
+UPDATE produk SET search_tsv =
+    setweight(to_tsvector('indonesian', coalesce(judul, '')), 'A') ||
+    setweight(to_tsvector('indonesian', coalesce(deskripsi, '')), 'B');
+
+CREATE INDEX idx_produk_fts ON produk USING GIN (search_tsv);
+
+CREATE FUNCTION produk_fts_trigger() RETURNS trigger AS $$
+BEGIN
+  NEW.search_tsv :=
+    setweight(to_tsvector('indonesian', coalesce(NEW.judul, '')), 'A') ||
+    setweight(to_tsvector('indonesian', coalesce(NEW.deskripsi, '')), 'B');
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_update_produk_tsv
+BEFORE INSERT OR UPDATE ON produk
+FOR EACH ROW EXECUTE FUNCTION produk_fts_trigger();
 
 -- references produk & users
 CREATE TABLE kelas_saya (

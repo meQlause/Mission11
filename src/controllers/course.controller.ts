@@ -65,3 +65,14 @@ export const editCourseById = async (req: Request, res: Response) => {
 
     res.status(200).json(updated);
 };
+
+
+export const search = async (req: Request, res: Response) => {
+    try {
+        const produk = await contentService.searchProduct(req.queryParam ? req.queryParam : undefined);
+        res.status(201).json(produk);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Failed to create produk' });
+    }
+};
