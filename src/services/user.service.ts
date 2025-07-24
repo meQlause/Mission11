@@ -39,7 +39,7 @@ export const userRegister = async (data: userRegisterDTO) => {
         data.jenis_kelamin,
         data.no_hp,
         data.email,
-        hashPassword(data.kata_sandi)
+        await hashPassword(data.kata_sandi)
     ];
 
     const result = await pool.query(query, values);
@@ -85,8 +85,8 @@ export const verifyUserEmail = async (data: userVerifyDTO): Promise<boolean> => 
         }
 
         await client.query(
-            `UPDATE users SET is_verified = TRUE WHERE id = $1`,
-            [tokenRow.user_id]
+            `UPDATE users SET is_verified = TRUE WHERE email = $1`,
+            [tokenRow.email]
         );
 
         await client.query(
