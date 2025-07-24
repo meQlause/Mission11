@@ -111,35 +111,25 @@ Exit the container:
 exit
 ```
 
-## 📊 Optional: pgAdmin GUI Access
+## 📊 Optional: Adminer GUI Access
 
-You can uncomment the pgadmin's section your `docker.yml` to enable [pgAdmin](https://www.pgadmin.org/), and re run the docker compose:
+You can uncomment the `adminer` section in your `docker-compose.yml` to enable [Adminer](https://www.adminer.org/), and re-run Docker Compose:
 
-### 1. Open pgAdmin in Your Browser
+### 1. Open Adminer in Your Browser
 
 Visit:
 
-<http://localhost:5050>
+http://localhost:8080
 
-Login with:
+### 2. Login with the Following Details:
 
-- **Email**: `admin@example.com`
-- **Password**: `admin123`
-
----
-
-### 2. Add a New Server in pgAdmin
-
-1. Click **"Add New Server"**
-2. Under the **General** tab:
-   - Name: `Mission9 DB` (or any name you prefer)
-3. Under the **Connection** tab:
-   - **Host**: `db` _(must match the service name in `docker-compose.yml`)_
-   - **Port**: `5432`
-   - **Username**: `admin`
-   - **Password**: `admin`
-
-Click **Save**.
+| Field     | Value      |
+|-----------|------------|
+| System    | PostgreSQL |
+| Server    | `db`       |
+| Username  | `admin`    |
+| Password  | `admin`    |
+| Database  | `educourse`|
 
 ---
 
@@ -147,10 +137,7 @@ Click **Save**.
 
 Once connected:
 
-- Navigate to:  
-  `Servers > Mission9 DB > Databases > educourse > Schemas > public > Tables`
-- Right-click a table (e.g. `produk`)
-  → **View/Edit Data**
-  → **All Rows**
-
-You can now browse and manage your database visually.
+- You can use Adminer's web UI to:
+  - View and edit tables
+  - Run SQL queries
+  - Inspect schema and data easily
