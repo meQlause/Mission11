@@ -4,7 +4,12 @@ export interface userRegisterDTO {
     no_hp: number
     email: string
     kata_sandi: string
-    profil_pict: string
+    profil_pict?: string
+}
+
+export interface userVerifyDTO {
+    email: string
+    token: string
 }
 
 export interface userLoginDTO {

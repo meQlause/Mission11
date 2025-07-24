@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const SECRET_KEY = 'Mission11';
 const EXPIRES_IN = '1h'; 
 
-export const generateToken = (payload: object): string => {
+export const generateJWTToken = (payload: object): string => {
     return jwt.sign(payload, SECRET_KEY, { expiresIn: EXPIRES_IN });
 };
 

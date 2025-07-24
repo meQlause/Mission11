@@ -1,5 +1,14 @@
 CREATE TYPE OrderStatus AS ENUM ('berhasil', 'gagal', 'pending');
 
+
+CREATE TABLE verification_tokens (
+    token UUID PRIMARY KEY,        
+    email TEXT NOT NULL,      
+    expires_at TIMESTAMP NOT NULL
+);
+
+CREATE INDEX idx_verification_tokens_expires_at ON verification_tokens(expires_at);
+
 -- referenced early
 CREATE TABLE kategori_kelas (
   id SERIAL PRIMARY KEY,
@@ -20,6 +29,7 @@ CREATE TABLE users (
   jenis_kelamin TEXT NOT NULL,
   no_hp NUMERIC NOT NULL,
   email TEXT UNIQUE  NOT NULL,
+  is_verified BOOLEAN DEFAULT FALSE,
   kata_sandi TEXT NOT NULL,
   profil_pict TEXT, 
   created_at DATE DEFAULT CURRENT_DATE
