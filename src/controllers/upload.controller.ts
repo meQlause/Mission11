@@ -10,7 +10,7 @@ export const upload = (req: Request, res: Response) => {
         message: 'File uploaded successfully',
         filename: req.file.filename,
         path: req.file.path,
-        url: `http://localhost:3000/api/course/file/image/${req.file.filename}`
+        url: `${process.env.SERVER}/api/course/file/image/${req.file.filename}`
     });
 }
 
