@@ -38,10 +38,16 @@ export class QueryBuilder {
         return this;
     }
 
-    orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): this {
+    orderBy(field: string, direction: 'ASC' | 'DESC'): this {
         this.query += ` ORDER BY ${field} ${direction}`;
         return this;
     }
+
+    orderByLetter(direction: 'ASC' | 'DESC'): this {
+        this.query += ` ORDER BY LOWER(LEFT(judul, 1)) ${direction}`;
+        return this;
+    }
+
 
     getQuery(): string {
         const finalQuery = this.query;

@@ -95,7 +95,7 @@ const buildQuerySearch = (data: QueryParam): string => {
         query.fullTextSearch("search_tsv", data.search)
     }
 
-    if (Array.isArray(data.durasi) && data.durasi.length > 0) {
+    if (data.durasi) {
         if (data.durasi.length === 2) {
             query.filterBetween("durasi", String(data.durasi[0]), String(data.durasi[1]))
         } else {
@@ -103,7 +103,7 @@ const buildQuerySearch = (data: QueryParam): string => {
         }
     }
 
-    if (Array.isArray(data.harga) && data.harga.length > 0) {
+    if (data.harga) {
         if (data.harga.length === 2) {
             query.filterBetween("durasi", String(data.harga[0]), String(data.harga[1]))
         } else {
@@ -113,6 +113,14 @@ const buildQuerySearch = (data: QueryParam): string => {
 
     if (Array.isArray(data.studi) && data.studi.length > 0) {
         query.filterEquals("studi", data.studi);
+    }
+
+    if (data.filter) {
+        if (!data.filter.field) {
+            query.orderByLetter(data.filter.order)
+        } else {
+            query.orderBy(data.filter.field, data.filter.order)
+        }
     }
 
     return query.getQuery()
