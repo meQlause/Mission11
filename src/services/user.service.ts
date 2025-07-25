@@ -15,7 +15,7 @@ export const userLogin = async (data: userLoginDTO) => {
         throw new Error('User not found');
     }
 
-    if (!await comparePassword(data.kata_sandi, result.rows[0].password)) {
+    if (!await comparePassword(data.kata_sandi, result.rows[0].kata_sandi)) {
         throw new Error('User Login Error');
     };
 

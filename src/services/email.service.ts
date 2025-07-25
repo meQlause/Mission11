@@ -28,7 +28,7 @@ export const sendVerificationEmailTo = (account: string, token: string) => {
                   Thanks for signing up! To get started, please verify your email address by clicking the button below:
                 </p>
                 <div style="text-align: center; margin: 30px 0;">
-                  <a href="${process.env.EMAIL_PASS}/api/user/verify?email=${encodeURIComponent(account)}&token=${token}"
+                  <a href="${process.env.SERVER}/api/user/verify?email=${encodeURIComponent(account)}&token=${token}"
                      style="background-color: #6366f1; color: #ffffff; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 500; display: inline-block;">
                     ✅ Verify Email
                   </a>
