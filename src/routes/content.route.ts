@@ -5,9 +5,9 @@ import * as paramMiddleware from '../middlewares/extractParam.middleware';
 
 const router = Router();
 
-router.get('/search', paramMiddleware.extractParamMiddleware, courseController.search);
+router.get('/search', authMiddleware.authMiddleware, paramMiddleware.extractParamMiddleware, courseController.search);
 
-router.get('/', authMiddleware.authMiddleware, courseController.getCourses);
+router.get('/', courseController.getCourses);
 router.post('/', authMiddleware.authMiddleware, courseController.addCourse);
 
 router.get('/:id', authMiddleware.authMiddleware, courseController.getCourseById);

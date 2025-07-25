@@ -105,9 +105,9 @@ const buildQuerySearch = (data: QueryParam): string => {
 
     if (data.harga) {
         if (data.harga.length === 2) {
-            query.filterBetween("durasi", String(data.harga[0]), String(data.harga[1]))
+            query.filterBetween("harga", String(data.harga[0]), String(data.harga[1]))
         } else {
-            query.filterBetween("durasi", "0", String(data.harga[0]))
+            query.filterBetween("harga", "0", String(data.harga[0]))
         }
     }
 
